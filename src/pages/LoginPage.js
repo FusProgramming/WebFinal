@@ -20,8 +20,8 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: " ",
-            password: " ",
+            emailAddress: '',
+            password: '',
             handleClick: ' ',
             isAuthenticated: false
         };
@@ -66,6 +66,7 @@ class LoginPage extends React.Component {
     render() {
         const {emailAddress} = this.state;
         const {password} = this.state;
+        const emailIsValid = emailAddress.includes('@');
 
         return (
             <Container component="main" maxWidth="xs">
@@ -103,7 +104,9 @@ class LoginPage extends React.Component {
                                 <Grid item xs={12}>
                                     <p>
                                         <RaisedButton label="Login" primary={true}
-                                                      onClick={this.handleHomeOpen}
+                                                      onClick={emailIsValid ? this.handleHomeOpen:<Typography component={"h1"} variant={"h5"}>
+                                                          Please enter a valid email address, must include @
+                                                      </Typography>}
                                                       fullWidth
                                                       variant = 'contained'
                                                       color = 'primary'

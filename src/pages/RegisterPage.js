@@ -1,7 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
-//import {withRouter} from 'react-router-dom';
-
 import Typography from "@material-ui/core/Typography";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import EmailInput from "../input/EmailInput";
@@ -16,29 +13,19 @@ import {Avatar} from "material-ui";
 import LockOutlinedIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Grid from "@material-ui/core/Grid";
 import * as palette from "@material-ui/core/colors";
-import Card from '@material-ui/core/Card';
-import TextField from "@material-ui/core/TextField";
-import CardContent from "@material-ui/core/CardContent/CardContent";
-import LoginPage from "./LoginPage";
-
 
 class RegisterPage extends React.Component {
     //object constructor
     constructor(props) {
         super(props);
         this.state = {
-
-            users: [],
-
             firstName: "",
             lastName: "",
             preferredName: "",
             email: "",
             password: "",
-            handleClick: ' ',
-            handleLoginOpen: false,
+            handleClick: ' '
         };
-        this.loadUsers = this.loadUsers.bind(this);
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handlePreferredNameChange = this.handlePreferredNameChange.bind(this);
@@ -46,33 +33,6 @@ class RegisterPage extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleLoginOpen = this.handleLoginOpen.bind(this);
         this.handleHomeOpen = this.handleHomeOpen.bind(this);
-        this.handleUserSubmit = this.handleUserSubmit.bind(this);
-
-
-    }
-
-    async componentDidMount() {
-        // Load all of the users as soon as this component mounts
-        await this.loadUsers()
-    }
-
-    /**
-     * Reusable function that uses a GET request to load all users into a state.
-     */
-    async loadUsers() {
-
-        try {
-
-            const response = await Axios.get('/api/user');
-
-            const {data} = response;
-
-            this.setState({users: data});
-
-        } catch (error) {
-
-            console.error(error.message);
-        }
     }
 
     /**
@@ -80,7 +40,7 @@ class RegisterPage extends React.Component {
      * Navigates to the {@link LoginPage}.
      */
     handleLoginOpen = () => {
-        const {history} = this.props
+        const { history } = this.props
         history.push('/')
     }
 
@@ -89,7 +49,7 @@ class RegisterPage extends React.Component {
      * Navigates to the {@link HomePage}.
      */
     handleHomeOpen = () => {
-        const {history} = this.props
+        const { history } = this.props
         history.push('/HomePage')
     }
 
@@ -123,87 +83,28 @@ class RegisterPage extends React.Component {
         this.setState({password: event.target.value})
     }
 
-    /**
-     * Called when the submit button is clicked.
-     */
-    async handleUserSubmit() {
-
-        const {preferredName, firstName, lastName, emailAddress, password} = this.state;
-
-        try {
-
-            // This is the JSON payload that will be delivered to the server in 'request.body'
-            const data = {
-                userName: preferredName,
-                firstName: firstName,
-                lastName: lastName,
-                emailAddress: emailAddress,
-                password: password
-            };
-            console.log(data);
-
-            // We are now doing a POST request because we are storing a new user plus switching to the login page for login
-            await Axios.post('/api/users', data);
-            this.props.history.push('/LoginPage')
-        }
-
-        catch (error) {
-
-            console.error(error.message);
-        }
-
-        // Reload the users straight from the server
-        await this.loadUsers();
-    }
-
     //renders register page
     render() {
-        const {firstName, lastName, preferredName, emailAddress, password} = this.state;
-
-        // For each user in the database, create a card
-        /*const userCards = users.map((user) => {
-
-            return (
-                <Card style={{margin: '1rem'}} key={JSON.stringify(user)}>
-                    <CardContent>
-                        <Typography color={"textSecondary"}>
-                            {user.userName}
-                        </Typography>
-                        <Typography color={"textSecondary"}>
-                            {user.firstName}
-                        </Typography>
-                        <Typography color={"textSecondary"}>
-                            {user.lastName}
-                        </Typography>
-                        <Typography color={"textSecondary"}>
-                            {user.emailAddress}
-                        </Typography>
-                        <Typography color={"textSecondary"}>
-                            {user.password}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            )
-        });*/
-
+        const {firstName} = this.state;
+        const {lastName} = this.state;
+        const {preferredName} = this.state;
+        const {emailAddress} = this.state;
+        const {password} = this.state;
 
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
-                <div style={{
-                    marginTop: '1rem',
+                <div style={{   marginTop: '1rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
+                    alignItems: 'center'}}>
                     <MuiThemeProvider>
-                        <Avatar style={{
-                            backgroundColor: palette.common.black,
+                        <Avatar style={{    backgroundColor: palette.common.black,
                             marginTop: '3rem'
                         }}>
                             <LockOutlinedIcon/>
                         </Avatar>
-                        <Typography component={'h1'} variant={"h4"}>
+                        <Typography component={'h1'}variant={"h4"}>
                             Sign Up
                         </Typography>
                         <form>
@@ -246,10 +147,8 @@ class RegisterPage extends React.Component {
                                 <Grid item xs={12}>
                                     <p>
                                         <RaisedButton label="Sign Up" primary={true}
-                                                      onClick={this.handleUserSubmit}
+                                                      onClick={this.handleHomeOpen}
                                                       fullWidth
-                                            //handleLoginOpen: true
-                                            //window.location.replace('LoginPage.js');
                                         />
                                     </p>
                                 </Grid>
@@ -265,11 +164,11 @@ class RegisterPage extends React.Component {
                             </Grid>
                         </form>
                     </MuiThemeProvider>
+
                 </div>
             </Container>
 
         );
-
 
     }
 }

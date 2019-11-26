@@ -23,9 +23,45 @@ class NavigationBar extends React.Component {
         super(props);
         this.state = {
         };
-
+        this.handleLoginOpen = this.handleLoginOpen.bind(this);
+        this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
+        this.handleHomeOpen = this.handleHomeOpen.bind(this);
+        this.handleLogOut = this.handleLogOut.bind(this);
     }
 
+    /**
+     * Called when the 'Login' button is pressed.
+     * Navigates to the {@link /}.
+     */
+    handleLoginOpen = () => {
+        const { history } = this.props;
+        history.push('/LoginPage')
+    };
+
+    /**
+     * Called when the 'Register' button is pressed.
+     * Navigates to the {@link RegisterPage}.
+     */
+    handleRegisterOpen = () => {
+        const { history } = this.props;
+        history.push('/RegisterPage')
+    };
+    /**
+     * Called when the 'Logout' button is pressed.
+     * Navigates to the {@link /}.
+     */
+    handleLogOut = () => {
+        const { history } = this.props;
+        history.push('/')
+    };
+    /**
+     * Called when the 'Home' button is pressed.
+     * Navigates to the {@link HomePage}.
+     */
+    handleHomeOpen = () => {
+        const { history } = this.props;
+        history.push('/')
+    };
     render() {
         return (
             <AppBar position={"static"}>
@@ -34,7 +70,7 @@ class NavigationBar extends React.Component {
                         <div style={{
                             marginRight: "1rem"
                         }}>
-                            <SvgIcon>
+                            <SvgIcon onClick= {this.handleHomeOpen}>
                                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                             </SvgIcon>
                         </div>
@@ -99,7 +135,7 @@ class NavigationBar extends React.Component {
                             </MenuItem>
                         </Tooltip>
                     </div>
-                    <div>
+                    <div >
                         <Tooltip title="Profile">
                             <MenuItem >
                                 <IconButton
@@ -113,7 +149,7 @@ class NavigationBar extends React.Component {
                     </div>
                     <div>
                         <Tooltip title="LogOut">
-                            <MenuItem>
+                            <MenuItem onClick={this.handleLogOut}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
                                     <path fill="none" d="M0 0h24v24H0V0z"/>
                                     <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
@@ -122,7 +158,6 @@ class NavigationBar extends React.Component {
                         </Tooltip>
                     </div>
                 </Toolbar>
-
             </AppBar>
         );
     }
