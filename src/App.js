@@ -16,7 +16,7 @@ class App extends React.Component {
           <div>
             <NavigationBar/>
             <Switch>
-              <Route path="/HomePage">
+              <Route path="/">
                 <HomePage/>
               </Route>
             </Switch>
