@@ -1,5 +1,7 @@
 import React from 'react';
 import NavigationBar from './navigation/NavigationBar';
+import NavigationBarAdmin from './navigation/NavigationBarAdmin';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +11,7 @@ import {
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
+import AdminItemPage from "./pages/AdminItemPage";
 
 
 class App extends React.Component {
@@ -21,15 +24,17 @@ class App extends React.Component {
                 <NavigationBar/>
                 <HomePage/>
               </Route>
+              <Route path="/AdminItemPage">
+                <NavigationBarAdmin/>
+                <AdminItemPage/>
+              </Route>
               <Route path="/RegisterPage">
-
                 <RegisterPage/>
               </Route>
               <Route path="/">
                 <NavigationBar/>
                 <LoginPage/>
               </Route>
-
             </Switch>
           </div>
         </Router>
