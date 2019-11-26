@@ -12,7 +12,7 @@ import Badge from "@material-ui/core/Badge";
 import MailIcon from '@material-ui/icons/Mail';
 import MenuItem from "@material-ui/core/MenuItem";
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { AccountCircle } from "@material-ui/icons";
+import {AccountCircle} from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { withRouter } from 'react-router-dom'
 import {Tooltip} from "@material-ui/core";
@@ -23,6 +23,7 @@ class NavigationBar extends React.Component {
         super(props);
         this.state = {
         };
+
         this.handleLoginOpen = this.handleLoginOpen.bind(this);
         this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
         this.handleHomeOpen = this.handleHomeOpen.bind(this);
@@ -35,7 +36,7 @@ class NavigationBar extends React.Component {
      */
     handleLoginOpen = () => {
         const { history } = this.props;
-        history.push('/LoginPage')
+        history.push('/')
     };
 
     /**
@@ -54,17 +55,21 @@ class NavigationBar extends React.Component {
         const { history } = this.props;
         history.push('/')
     };
+
     /**
      * Called when the 'Home' button is pressed.
      * Navigates to the {@link HomePage}.
      */
     handleHomeOpen = () => {
         const { history } = this.props;
-        history.push('/')
+        history.push('/HomePage')
     };
+
     render() {
+        const menuId = 'primary-search-account-menu'
         return (
-            <AppBar position={"static"}>
+            <AppBar position={"static"}
+                    style={{ background: '#2E3B55' }}>
                 <Toolbar>
                     <Tooltip title="Home">
                         <div style={{
@@ -135,11 +140,12 @@ class NavigationBar extends React.Component {
                             </MenuItem>
                         </Tooltip>
                     </div>
-                    <div >
+                    <div onCLick = { this.handleLoginOpen }>
                         <Tooltip title="Profile">
                             <MenuItem >
                                 <IconButton
                                     aria-label="account of current user"
+                                    aria-controls= { menuId }
                                     aria-haspopup="true"
                                     color="inherit" >
                                     <AccountCircle/>

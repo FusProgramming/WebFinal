@@ -40,18 +40,18 @@ class RegisterPage extends React.Component {
      * Navigates to the {@link LoginPage}.
      */
     handleLoginOpen = () => {
-        const { history } = this.props
+        const { history } = this.props;
         history.push('/')
-    }
+    };
 
     /**
      * Called when the 'Home' button is pressed.
      * Navigates to the {@link HomePage}.
      */
     handleHomeOpen = () => {
-        const { history } = this.props
+        const { history } = this.props;
         history.push('/HomePage')
-    }
+    };
 
     //handles first name entered
     handleFirstNameChange(event) {

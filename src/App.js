@@ -6,7 +6,6 @@ import {
   Route,
 } from "react-router-dom";
 
-import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
@@ -17,18 +16,17 @@ class App extends React.Component {
     return (
         <Router>
           <div>
-            <NavigationBar/>
             <Switch>
-              <Route path="/">
+              <Route path="/HomePage">
+                <NavigationBar/>
                 <HomePage/>
               </Route>
-              <Route path="/ProfilePage">
-                <ProfilePage/>
-              </Route>
               <Route path="/RegisterPage">
+
                 <RegisterPage/>
               </Route>
-              <Route path="/LoginPage">
+              <Route path="/">
+                <NavigationBar/>
                 <LoginPage/>
               </Route>
 

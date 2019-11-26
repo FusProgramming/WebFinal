@@ -20,8 +20,8 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            emailAddress: '',
-            password: '',
+            userName: " ",
+            password: " ",
             handleClick: ' ',
             isAuthenticated: false
         };
@@ -36,18 +36,18 @@ class LoginPage extends React.Component {
      * Navigates to the {@link HomePage}.
      */
     handleHomeOpen = () => {
-        const { history } = this.props
+        const { history } = this.props;
         history.push('/HomePage')
-    }
+    };
 
     /**
      * Called when the 'Register' button is pressed.
      * Navigates to the {@link RegisterPage}.
      */
     handleRegisterOpen = () => {
-        const { history } = this.props
+        const { history } = this.props;
         history.push('/RegisterPage')
-    }
+    };
 
     //handles email address entered
     handleEmailAddressChange(event) {
@@ -66,7 +66,6 @@ class LoginPage extends React.Component {
     render() {
         const {emailAddress} = this.state;
         const {password} = this.state;
-        const emailIsValid = emailAddress.includes('@');
 
         return (
             <Container component="main" maxWidth="xs">
@@ -104,9 +103,7 @@ class LoginPage extends React.Component {
                                 <Grid item xs={12}>
                                     <p>
                                         <RaisedButton label="Login" primary={true}
-                                                      onClick={emailIsValid ? this.handleHomeOpen:<Typography component={"h1"} variant={"h5"}>
-                                                          Please enter a valid email address, must include @
-                                                      </Typography>}
+                                                      onClick={this.handleHomeOpen}
                                                       fullWidth
                                                       variant = 'contained'
                                                       color = 'primary'
