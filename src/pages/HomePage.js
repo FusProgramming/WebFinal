@@ -11,7 +11,13 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
     }
+
+    handleRegisterOpen = () => {
+        const { history } = this.props;
+        history.push('/RegisterPage')
+    };
 //creates posting display
     render() {
         return (
@@ -32,7 +38,10 @@ class HomePage extends React.Component {
                     <Typography variant={"h4"}>
                         Work for A Brewery or a Liquor Store?
                     </Typography>
-                    <Button variant="contained" size="large" color="#2E3B55"
+                    <Button variant="contained"
+                            size="large"
+                            color="#2E3B55"
+                            onClick={this.handleRegisterOpen}
                             style ={{
                                 marginTop: '2rem',
                                 display: 'flex',

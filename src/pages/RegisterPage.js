@@ -94,17 +94,20 @@ class RegisterPage extends React.Component {
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
-                <div style={{   marginTop: '1rem',
+                <div style={{   marginTop: '2rem',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center'}}>
                     <MuiThemeProvider>
-                        <Avatar style={{    backgroundColor: palette.common.black,
+                        <Avatar style={{
+                            backgroundColor: palette.common.black,
                             marginTop: '3rem'
                         }}>
                             <LockOutlinedIcon/>
                         </Avatar>
-                        <Typography component={'h1'}variant={"h4"}>
+                        <Typography
+                            component={'h1'}
+                            variant={"h4"}>
                             Sign Up
                         </Typography>
                         <form>
@@ -152,15 +155,6 @@ class RegisterPage extends React.Component {
                                         />
                                     </p>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <p>
-                                        <RaisedButton label="Login" primary={true}
-                                                      onClick={this.handleLoginOpen}
-                                                      fullWidth
-                                        />
-                                    </p>
-                                </Grid>
-
                             </Grid>
                         </form>
                     </MuiThemeProvider>

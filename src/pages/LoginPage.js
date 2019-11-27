@@ -82,7 +82,8 @@ class LoginPage extends React.Component {
                     flexDirection: 'column',
                     alignItems: 'center'}}>
                     <MuiThemeProvider>
-                        <Avatar style={{    backgroundColor: palette.common.black,
+                        <Avatar style={{
+                            backgroundColor: palette.common.black,
                             margin: '1rem'
                         }}>
                             <LockOutlinedIcon/>
