@@ -31,27 +31,16 @@ class NavigationBarAdmin extends React.Component {
         this.state = {
         };
 
+        this.handleAddPage = this.handleAddPage.bind(this);
+        this.handleAdminOpen = this.handleAdminOpen.bind(this);
+        this.handleAdminHome = this.handleAdminHome.bind(this);
+        this.handleLogOut = this.handleLogOut.bind(this);
     }
 
-
-    /**
-     * Called when the 'Logout' button is pressed.
-     * Navigates to the {@link /}.
-     */
     handleLogOut = () => {
         const { history } = this.props;
-        history.push('/')
+        history.push('/HomePage')
     };
-
-    /**
-     * Called when the 'Home' button is pressed.
-     * Navigates to the {@link HomePage}.
-     */
-    handleHomeOpen = () => {
-        const { history } = this.props;
-        history.push('/')
-    };
-
     handleAdminOpen = () => {
         const { history } = this.props;
         history.push('/AdminItemPage');
@@ -99,44 +88,6 @@ class NavigationBarAdmin extends React.Component {
                             marginLeft: '1rem',
                             width: '100%',
                         }}>
-                        </div>
-                        <div>
-                            <Tooltip title="Messages">
-                                <MenuItem >
-                                    <IconButton
-                                        aria-label="show 4 new mails"
-                                        color="inherit">
-                                        <Badge badgeContent={1} color="secondary">
-                                            <MailIcon/>
-                                        </Badge>
-                                    </IconButton>
-                                </MenuItem>
-                            </Tooltip>
-                        </div>
-                        <div onClick= {this.handleAdminOpen}>
-                            <Tooltip title="Notifcations">
-                                <MenuItem>
-                                    <IconButton aria-label="show 11 new notifications"
-                                                color="inherit" >
-                                        <Badge badgeContent={1} color="secondary">
-                                            <NotificationsIcon />
-                                        </Badge>
-                                    </IconButton>
-                                </MenuItem>
-                            </Tooltip>
-                        </div>
-                        <div onClick = { this.handleLoginOpen }>
-                            <Tooltip title="Profile">
-                                <MenuItem >
-                                    <IconButton
-                                        aria-label="account of current user"
-                                        aria-controls= { menuId }
-                                        aria-haspopup="true"
-                                        color="inherit" >
-                                        <AccountCircle/>
-                                    </IconButton>
-                                </MenuItem>
-                            </Tooltip>
                         </div>
                         <div>
                             <Tooltip title="LogOut">
@@ -192,7 +143,6 @@ class NavigationBarAdmin extends React.Component {
 
                             ))}
                             <Divider/>
-
                         </List>
                     </drawer>
                 </div>

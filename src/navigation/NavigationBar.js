@@ -16,6 +16,7 @@ import {AccountCircle} from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { withRouter } from 'react-router-dom'
 import {Tooltip} from "@material-ui/core";
+import InfoIcon from '@material-ui/icons/Info';
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -34,8 +35,7 @@ class NavigationBar extends React.Component {
         this.handleLoginOpen = this.handleLoginOpen.bind(this);
         this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
         this.handleHomeOpen = this.handleHomeOpen.bind(this);
-        this.handleLogOut = this.handleLogOut.bind(this);
-
+        this.handleAboutOpen = this.handleAboutOpen.bind(this);
     }
 
     /**
@@ -44,7 +44,7 @@ class NavigationBar extends React.Component {
      */
     handleLoginOpen = () => {
         const { history } = this.props;
-        history.push('/')
+        history.push('/LoginPage')
     };
 
     /**
@@ -55,22 +55,18 @@ class NavigationBar extends React.Component {
         const { history } = this.props;
         history.push('/RegisterPage')
     };
-    /**
-     * Called when the 'Logout' button is pressed.
-     * Navigates to the {@link /}.
-     */
-    handleLogOut = () => {
-        const { history } = this.props;
-        history.push('/')
-    };
 
+    handleAboutOpen = () => {
+        const { history } = this.props;
+        history.push('/AboutPage')
+    };
     /**
      * Called when the 'Home' button is pressed.
      * Navigates to the {@link HomePage}.
      */
     handleHomeOpen = () => {
         const { history } = this.props;
-        history.push('/HomePage')
+        history.push('/')
     };
 
     render() {
@@ -95,10 +91,6 @@ class NavigationBar extends React.Component {
                 <div style={{
                     position: 'relative',
                     borderRadius: shape.borderRadius,
-                    backgroundColor: fade(palette.common.white, 0.15),
-                    '&:hover': {
-                        backgroundColor: fade(palette.common.white, 0.25),
-                    },
                     marginRight: '2rem',
                     marginLeft: '1rem',
                     width: '100%',
@@ -111,11 +103,9 @@ class NavigationBar extends React.Component {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <SearchIcon/>
                     </div>
                     <div style={{marginLeft: '2rem'}}>
                         <InputBase
-                            placeholder="Search"
                             inputRoot={{color: 'inherit'}}
                             inputInput={{
                                 padding: '1rem',
@@ -125,14 +115,14 @@ class NavigationBar extends React.Component {
                         />
                     </div>
                 </div>
-                <div>
-                    <Tooltip title="Messages">
+                <div onClick={this.handleAboutOpen}>
+                    <Tooltip title="About ">
                         <MenuItem>
                             <IconButton
                                 aria-label="show 4 new mails"
                                 color="inherit">
-                                <Badge badgeContent={1} color="secondary">
-                                    <MailIcon/>
+                                <Badge color="secondary">
+                                    <InfoIcon/>
                                 </Badge>
                             </IconButton>
                         </MenuItem>
@@ -151,7 +141,7 @@ class NavigationBar extends React.Component {
                     </Tooltip>
                 </div>
                 <div onClick={this.handleLoginOpen}>
-                    <Tooltip title="Profile">
+                    <Tooltip title="Admin Login">
                         <MenuItem>
                             <IconButton
                                 aria-label="account of current user"
@@ -160,18 +150,6 @@ class NavigationBar extends React.Component {
                                 color="inherit">
                                 <AccountCircle/>
                             </IconButton>
-                        </MenuItem>
-                    </Tooltip>
-                </div>
-                <div>
-                    <Tooltip title="LogOut">
-                        <MenuItem onClick={this.handleLogOut}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="white">
-                                <path fill="none" d="M0 0h24v24H0V0z"/>
-                                <path
-                                    d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
-                            </svg>
                         </MenuItem>
                     </Tooltip>
                 </div>
