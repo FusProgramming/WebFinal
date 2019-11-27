@@ -14,6 +14,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as palette from "@material-ui/core/colors";
 import Grid from "@material-ui/core/Grid";
 import Image from '../assets/BeerPhoto.jpg';
+import StoreNameInput from "../input/StoreNameInput";
+import BeerNameInput from "../input/BeerNameInput";
+import BeerTypeInput from "../input/BeerTypeInput";
+import StoreAddressInput from "../input/StoreAddressInput";
+import StoreCityInput from "../input/StoreCityInput";
+import StoreStateInput from "../input/StoreStateInput";
 
 
 class AdminAddPage extends React.Component {
@@ -42,47 +48,38 @@ class AdminAddPage extends React.Component {
                             <Grid container spacing={1} >
                                 <Grid item xs={12 } >
                                     <p>
-                                        <EmailInput
-                                                    onChange={this.handleEmailAddressChange}
-                                        />
+                                        <StoreNameInput/>
+                                    </p>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <p>
+                                        <BeerNameInput/>
+                                    </p>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <p>
+                                        <BeerTypeInput/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
-                                        <EmailInput
-                                            onChange={this.handleEmailAddressChange}
-                                        />
+                                        <StoreAddressInput/>
+                                    </p>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <p>
+                                        <StoreCityInput/>
+                                    </p>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <p>
+                                        <StoreStateInput/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
-                                        <EmailInput
-                                            onChange={this.handleEmailAddressChange}
-                                        />
-                                    </p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <p>
-                                        <PasswordInput
-                                                       onChange={this.handlePasswordChange}
-
-                                        />
-                                    </p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <p>
-                                        <RaisedButton label="Login" primary={true}
+                                        <RaisedButton label="Submit" primary={true}
                                                       onClick={this.handleAdminHome}
-                                                      fullWidth
-                                                      variant = 'contained'
-                                                      color = 'primary'
-                                        />
-                                    </p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <p>
-                                        <RaisedButton label="Register" primary={true}
-                                                      onClick={this.handleRegisterOpen}
                                                       fullWidth
                                                       variant = 'contained'
                                                       color = 'primary'

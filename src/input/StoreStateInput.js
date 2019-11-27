@@ -8,7 +8,7 @@ class StoreStateInput extends React.Component {
         const { storeState,  onChange} = this.props;
         //Info for about the lastName textfield
         return <TextField id="standard-name"
-                          label="Store State"
+                          label=" State"
                           value={storeState}
                           onChange={onChange}
                           margin="normal"
