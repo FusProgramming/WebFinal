@@ -16,92 +16,54 @@ import Grid from "@material-ui/core/Grid";
 import Image from '../assets/BeerPhoto.jpg';
 
 
-class LoginPage extends React.Component {
-    //object constructor
+class AdminAddPage extends React.Component {
+
+
     constructor(props) {
         super(props);
-        this.state = {
-            userName: " ",
-            password: " ",
-            handleClick: ' ',
-            isAuthenticated: false
-        };
-        this.handleEmailAddressChange = this.handleEmailAddressChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
-        this.handleHomeOpen = this.handleHomeOpen.bind(this);
-        this.handleAdminHome= this.handleAdminHome.bind(this);
-
+        this.state = {};
     }
-
-    /**
-     * Called when the 'Home' button is pressed.
-     * Navigates to the {@link HomePage}.
-     */
-    handleHomeOpen = () => {
-        const { history } = this.props;
-        history.push('/HomePage')
-    };
-
-    /**
-     * Called when the 'Register' button is pressed.
-     * Navigates to the {@link RegisterPage}.
-     */
-    handleRegisterOpen = () => {
-        const { history } = this.props;
-        history.push('/RegisterPage')
-    };
-    handleAdminHome = () => {
-        const { history } = this.props;
-        history.push('/AdminHomePage')
-    };
-    //handles email address entered
-    handleEmailAddressChange(event) {
-        console.log("Change: " + event.target.value);
-        this.setState({emailAddress: event.target.value})
-    }
-
-    //handles password address entered
-    handlePasswordChange(event) {
-        console.log("Change: " + event.target.value);
-        this.setState({password: event.target.value})
-    }
-
-
-    //creates login Page
+//creates posting display
     render() {
-        const {emailAddress} = this.state;
-        const {password} = this.state;
-
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <div style={{
-                    marginTop: '8rem',
+                    marginTop: '2rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center'}}>
+                    alignItems: 'center',
+                    justifyContent: 'space-between'}}>
                     <MuiThemeProvider>
-                        <Avatar style={{    backgroundColor: palette.common.black,
-                            margin: '1rem'
-                        }}>
-                            <LockOutlinedIcon/>
-                        </Avatar>
                         <Typography component={"h1"} variant={"h5"}>
-                            Sign In
+                            Add Information
                         </Typography>
                         <form>
-                            <Grid container>
-                                <Grid item xs={12}>
+                            <Grid container spacing={1} >
+                                <Grid item xs={12 } >
                                     <p>
-                                        <EmailInput emailAddress={emailAddress}
+                                        <EmailInput
                                                     onChange={this.handleEmailAddressChange}
                                         />
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
-                                        <PasswordInput password={password}
+                                        <EmailInput
+                                            onChange={this.handleEmailAddressChange}
+                                        />
+                                    </p>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <p>
+                                        <EmailInput
+                                            onChange={this.handleEmailAddressChange}
+                                        />
+                                    </p>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <p>
+                                        <PasswordInput
                                                        onChange={this.handlePasswordChange}
 
                                         />
@@ -132,10 +94,9 @@ class LoginPage extends React.Component {
                     </MuiThemeProvider>
                 </div>
             </Container>
-
         );
 
     }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(AdminAddPage);

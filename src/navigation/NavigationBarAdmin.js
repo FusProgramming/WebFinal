@@ -16,44 +16,24 @@ import {AccountCircle} from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { withRouter } from 'react-router-dom'
 import {Tooltip} from "@material-ui/core";
-import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import HomeIcon from '@material-ui/icons/Home';
+import ListIcon from '@material-ui/icons/List';
 class NavigationBarAdmin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
 
-        this.handleLoginOpen = this.handleLoginOpen.bind(this);
-        this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
-        this.handleHomeOpen = this.handleHomeOpen.bind(this);
-        this.handleLogOut = this.handleLogOut.bind(this);
-        this.handleAdminOpen = this.handleAdminOpen(this);
     }
 
-    /**
-     * Called when the 'Login' button is pressed.
-     * Navigates to the {@link /}.
-     */
-    handleLoginOpen = () => {
-        const { history } = this.props;
-        history.push('/')
-    };
 
-    /**
-     * Called when the 'Register' button is pressed.
-     * Navigates to the {@link RegisterPage}.
-     */
-    handleRegisterOpen = () => {
-        const { history } = this.props;
-        history.push('/RegisterPage')
-    };
     /**
      * Called when the 'Logout' button is pressed.
      * Navigates to the {@link /}.
@@ -69,16 +49,24 @@ class NavigationBarAdmin extends React.Component {
      */
     handleHomeOpen = () => {
         const { history } = this.props;
-        history.push('/HomePage')
+        history.push('/')
     };
 
     handleAdminOpen = () => {
         const { history } = this.props;
-        history.push('/AdminItemPage')
+        history.push('/AdminItemPage');
+        console.log('Logged')
     };
-
+    handleAdminHome = () => {
+        const { history } = this.props;
+        history.push('/AdminHomePage')
+    };
+    handleAddPage = () => {
+        const { history } = this.props;
+        history.push('/AdminAddPage')
+    };
     render() {
-        const menuId = 'primary-search-account-menu'
+        const menuId = 'primary-search-account-menu';
         return (
 
             <div
@@ -94,7 +82,7 @@ class NavigationBarAdmin extends React.Component {
                             <div style={{
                                 marginRight: "1rem"
                             }}>
-                                <SvgIcon onClick= {this.handleHomeOpen}>
+                                <SvgIcon onClick= {this.handleAdminHome}>
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                 </SvgIcon>
                             </div>
@@ -177,25 +165,27 @@ class NavigationBarAdmin extends React.Component {
                             anchor="left">
                             <Divider/>
                             {[ 'Home'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItem button key={text}
+                                          onClick= {this.handleAdminHome}>
+                                    <ListItemIcon>{index ? <InboxIcon /> : <HomeIcon />}</ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItem>
 
                             ))}
                             <Divider/>
-
                             {['List Selection'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItem button key={text}
+                                          onClick= {this.handleAdminOpen} >
+                                    <ListItemIcon>{index ? <InboxIcon /> : <ListIcon />}</ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItem>
 
                             ))}
                             <Divider/>
                             {[ 'Add'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItem button key={text}
+                                          onClick= {this.handleAddPage}>
+                                    <ListItemIcon>{index ? <InboxIcon /> : <AddCircleOutlineIcon />}</ListItemIcon>
 
                                     <ListItemText primary={text} />
                                 </ListItem>

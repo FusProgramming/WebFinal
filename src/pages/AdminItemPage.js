@@ -15,10 +15,18 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+
 class AdminItemPage extends React.Component {
 //creates posting display
-    render() {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+
+    }
+    render() {
         return (
 <div>
             <div style= {{
@@ -61,7 +69,6 @@ class AdminItemPage extends React.Component {
                 </Paper>
             </div>
 </div>
-
         );
     }
 

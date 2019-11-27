@@ -35,7 +35,7 @@ class NavigationBar extends React.Component {
         this.handleRegisterOpen = this.handleRegisterOpen.bind(this);
         this.handleHomeOpen = this.handleHomeOpen.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
-        this.handleAdminOpen = this.handleAdminOpen(this);
+
     }
 
     /**
@@ -71,11 +71,6 @@ class NavigationBar extends React.Component {
     handleHomeOpen = () => {
         const { history } = this.props;
         history.push('/HomePage')
-    };
-
-    handleAdminOpen = () => {
-        const { history } = this.props;
-        history.push('/AdminItemPage')
     };
 
     render() {
