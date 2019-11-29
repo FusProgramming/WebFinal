@@ -15,6 +15,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Axios from "axios";
 
 
 class AdminItemPage extends React.Component {
@@ -23,10 +24,97 @@ class AdminItemPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            beers: [],
+            storeName: "",
+            beerName: "",
+            beerType: "",
+            address: "",
+            city: "",
+            state: ""
         };
+        this.loadBeers = this.loadBeers.bind(this);
+        this.handleStoreNameChange = this.handleStoreNameChange.bind(this);
+        this.handleBeerNameChange = this.handleBeerNameChange.bind(this);
+        this.handleBeerTypeChange = this.handleBeerTypeChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleStateChange = this.handleStateChange.bind(this);
+        this.handleBeerSubmit = this.handleBeerSubmit.bind(this);
 
     }
+
+
+
+    handleStoreNameChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({storeName: event.target.value})
+    }
+
+    handleBeerNameChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({beerName: event.target.value})
+    }
+
+    handleBeerTypeChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({beerType: event.target.value})
+    }
+
+    handleAddressChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({address: event.target.value})
+    }
+
+    handleCityChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({city: event.target.value})
+    }
+
+    handleStateChange(event) {
+        console.log("Change: " + event.target.value);
+        this.setState({state: event.target.value})
+    }
+
+        async componentDidMount() {
+            // Load all of the users as soon as this component mounts
+            await this.loadBeers()
+        }
+
+        /**
+         * Reusable function that uses a GET request to load all users into a state.
+         */
+        async loadBeers() {
+            try {
+                const response = await Axios.get('/api/beer');
+                const {data} = response;
+                this.setState({beers: data});
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+    async handleBeerSubmit() {
+        const {storeName, beerName, beerType, address, city, state} = this.state;
+
+        try {
+            const data = {
+                storeName: storeName,
+                beerName: beerName,
+                beerType: beerType,
+                address: address,
+                city: city,
+                state: state
+            };
+            console.log(data);
+
+            await Axios.post('/api/beers', data);
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        await this.loadBeers();
+    }
+
     render() {
         return (
 <div>
@@ -50,21 +138,22 @@ class AdminItemPage extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                                <TableRow >
-                                    <TableCell component="th" scope="row">
-                                    </TableCell>
-                                    <TableCell align="right">k</TableCell>
-                                    <TableCell align="right">k</TableCell>
-                                    <TableCell align="right">k</TableCell>
-                                    <TableCell align="right">k</TableCell>
-                                    <TableCell align="right">k</TableCell>
+                            {this.state.beers.map(row => (
+                                <TableRow key={row.storeName} >
+                                    <TableCell align="right" component="th" scope="row">{row.storeName}</TableCell>
+                                    <TableCell align="right">{row.beerName}</TableCell>
+                                    <TableCell align="right">{row.beerType}</TableCell>
+                                    <TableCell align="right">{row.address}</TableCell>
+                                    <TableCell align="right">{row.city}</TableCell>
+                                    <TableCell align="right">{row.state}</TableCell>
                                     <TableCell align="right"
                                                 style= {{
                                                     marginRight: '1rem',
                                                 }}>
-                                        <DeleteIcon onClick={this.handleLoginOpen} />
+                                        <DeleteIcon />
                                     </TableCell>
                                 </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </Paper>
