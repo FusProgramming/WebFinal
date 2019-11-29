@@ -40,7 +40,7 @@ class AdminItemPage extends React.Component {
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleStateChange = this.handleStateChange.bind(this);
         this.handleBeerSubmit = this.handleBeerSubmit.bind(this);
-
+        this.deleteBeers = this.deleteBeers.bind(this);
     }
 
 
@@ -77,7 +77,7 @@ class AdminItemPage extends React.Component {
 
         async componentDidMount() {
             // Load all of the users as soon as this component mounts
-            await this.loadBeers()
+            await this.loadBeers();
         }
 
         /**
@@ -86,6 +86,16 @@ class AdminItemPage extends React.Component {
         async loadBeers() {
             try {
                 const response = await Axios.get('/api/beer');
+                const {data} = response;
+                this.setState({beers: data});
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        async deleteBeers() {
+            try {
+                const response = await Axios.delete('/api/beer');
                 const {data} = response;
                 this.setState({beers: data});
             } catch (error) {
@@ -105,8 +115,9 @@ class AdminItemPage extends React.Component {
                 city: city,
                 state: state
             };
-            console.log(data);
 
+
+            console.log(data);
             await Axios.post('/api/beers', data);
         } catch (error) {
             console.error(error.message);
@@ -150,7 +161,7 @@ class AdminItemPage extends React.Component {
                                                 style= {{
                                                     marginRight: '1rem',
                                                 }}>
-                                        <DeleteIcon />
+                                        <DeleteIcon onClick= {this.deleteBeers}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

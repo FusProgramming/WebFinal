@@ -29,32 +29,30 @@ app.get('/api/user', async (request, response) => {
 
 // When a POST request comes in on this route, create a new user and return success with a 200 code or failure with a 400 code
 app.post('/api/users', async (request, response) => {
-
     console.log('A request came in with the body: ' + JSON.stringify(request.body));
-
     const { userName, firstName, lastName, emailAddress, password} = request.body;
-
     try {
+        const existingUser = await User.findOne({ emailAddress: { $eq: emailAddress}});
+        if(existingUser) {
+            console.log(`A user with the email address '${emailAddress}' already exists, rejecting request with a 400`);
+            return response.sendStatus(400);
+        }
 
         await User.create({ userName: userName,
             firstName: firstName,
             lastName: lastName,
             emailAddress: emailAddress,
             password: password
-            //isDeleted: isDeleted
         });
-
         console.log(`A new user was created with name: '${userName}' and email address: '${emailAddress}'`);
-
         return response.sendStatus(200);
-
     } catch (error) {
-
         console.error('Something went wrong while creating a new user: ' + error.message);
-
         return response.sendStatus(400);
     }
 });
+
+
 
 //----------------------------------------------------------------------------------------------------------------------
 app.get('/api/beer', async (request, response) => {
@@ -92,6 +90,17 @@ app.post('/api/beers', async (request, response) => {
         return response.sendStatus(400);
     }
 });
+
+app.delete('/api/beer', async (request, response) => {
+
+    console.log('Delete Request');
+
+    const beers = await Beer.deleteOne({});
+
+    return response.send(beers).status(200);
+});
+
+
 
 const port = 4100;
 app.listen(port, () => console.log(`Server has started on localhost:${port}`))

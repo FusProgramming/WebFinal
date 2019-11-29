@@ -70,6 +70,7 @@ class RegisterPage extends React.Component {
         }
     }
 
+
     /**
      * Called when the 'Login' button is pressed.
      * Navigates to the {@link LoginPage}.
