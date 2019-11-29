@@ -41,6 +41,7 @@ class AdminItemPage extends React.Component {
         this.handleStateChange = this.handleStateChange.bind(this);
         this.handleBeerSubmit = this.handleBeerSubmit.bind(this);
         this.deleteBeers = this.deleteBeers.bind(this);
+
     }
 
 
@@ -88,20 +89,36 @@ class AdminItemPage extends React.Component {
                 const response = await Axios.get('/api/beer');
                 const {data} = response;
                 this.setState({beers: data});
+
             } catch (error) {
                 console.error(error.message);
             }
         }
 
         async deleteBeers() {
+            const {storeName, beerName, beerType, address, city, state} = this.state;
+
             try {
-                const response = await Axios.delete('/api/beer');
-                const {data} = response;
-                this.setState({beers: data});
+                const data = {
+                    storeName: storeName,
+                    beerName: beerName,
+                    beerType: beerType,
+                    address: address,
+                    city: city,
+                    state: state
+                };
+
+
+                console.log(data);
+                await Axios.delete('/api/beer', data);
+
             } catch (error) {
                 console.error(error.message);
             }
+            const { history } = this.props;
+            history.push('/AdminItemPage')
         }
+
 
     async handleBeerSubmit() {
         const {storeName, beerName, beerType, address, city, state} = this.state;
@@ -161,7 +178,9 @@ class AdminItemPage extends React.Component {
                                                 style= {{
                                                     marginRight: '1rem',
                                                 }}>
-                                        <DeleteIcon onClick= {this.deleteBeers}/>
+                                        <DeleteIcon onClick= {this.deleteBeers}>
+
+                                        </DeleteIcon>
                                     </TableCell>
                                 </TableRow>
                             ))}

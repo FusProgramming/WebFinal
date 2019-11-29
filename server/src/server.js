@@ -92,12 +92,18 @@ app.post('/api/beers', async (request, response) => {
 });
 
 app.delete('/api/beer', async (request, response) => {
+    const { storeName, beerName, beerType, address, city, state} = request.body;
 
-    console.log('Delete Request');
+    try {
 
-    const beers = await Beer.deleteOne({});
+        console.log('Delete Request');
+        const beers = await Beer.findOneAndDelete({});
+        return response.send(beers).status(200);
 
-    return response.send(beers).status(200);
+    } catch (error) {
+        console.error('Something went wrong while trying to delete: ' + error.message);
+        return response.sendStatus(400);
+    }
 });
 
 
