@@ -123,7 +123,7 @@ class RegisterPage extends React.Component {
      */
     async handleUserSubmit() {
 
-        const {preferredName, firstName, lastName, emailAddress, password} = this.state;
+        const { preferredName, firstName, lastName, emailAddress, password } = this.state;
 
         try {
 
@@ -139,7 +139,6 @@ class RegisterPage extends React.Component {
 
             // We are now doing a POST request because we are storing a new user plus switching to the login page for login
             await Axios.post('/api/users', data);
-            this.props.history.push('/LoginPage')
         }
         catch (error) {
 
@@ -205,54 +204,45 @@ class RegisterPage extends React.Component {
                                 <Grid item xs={12} sm={6}>
                                     <p>
                                         <NameInput firstName={firstName}
-                                                   onChange={this.handleFirstNameChange}
-                                        />
+                                                   onChange={this.handleFirstNameChange}/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <p>
                                         <LastNameInput lastName={lastName}
-                                                       onChange={this.handleLastNameChange}
-                                        />
+                                                       onChange={this.handleLastNameChange}/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
                                         <PreferredNameInput preferredName={preferredName}
-                                                            onChange={this.handlePreferredNameChange}
-                                        />
+                                                            onChange={this.handlePreferredNameChange}/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
                                         <EmailInput emailAddress={emailAddress}
-                                                    onChange={this.handleEmailAddressChange}
-                                        />
+                                                    onChange={this.handleEmailAddressChange}/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
                                         <PasswordInput password={password}
-                                                       onChange={this.handlePasswordChange}
-                                        />
+                                                       onChange={this.handlePasswordChange}/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
                                         <RaisedButton label="Sign Up" primary={true}
                                                       onClick={this.handleUserSubmit}
-                                                      fullWidth
-                                            //handleLoginOpen: true
-                                            //window.location.replace('LoginPage.js');
-                                        />
+                                                      fullWidth/>
                                     </p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <p>
                                         <RaisedButton label="Login" primary={true}
-                                                      onClick={this.handleLoginOpen}
-                                                      fullWidth
-                                        />
+                                                      onClick={this.handleUserSubmit}
+                                                      fullWidth/>
                                     </p>
                                 </Grid>
 
