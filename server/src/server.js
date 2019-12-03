@@ -1,23 +1,48 @@
 
 const Express = require('express');
 const Mongoose = require('mongoose');
-
+const path = require('path');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('./models/user');
 const Beer = require('./models/beer');
 const Post = require('./models/registerpost');
 const app = Express();
 
 // Connect to the 'test' database. Ensure you have started the mongod process!
-Mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+Mongoose.connect('mongodb+srv://RobFus:H2runo01-bass01@cluster0-b9vqw.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 // When Mongoose has connected to your MongoDB, print out a log message
 Mongoose.connection.once('open', () => console.log("Connected to database!"));
 
 // We will use an Express Middleware called json. Middleware is called before any REST route gets your request.
 // Middleware can reject requests prior to reaching your REST routes or append data to your route.
 // The Express.json middleware provides easy to use JSON on POST requests.
-app.use(Express.json());
+// Specify where the compiled React app lives (copied the files manually from the client build)
+const clientAppDirectory = path.join(__dirname, '../public', 'build');
 
+app.use(Express.json());
+app.use(Express.static(clientAppDirectory));
 // When a GET request comes in on this route, find all users in the database and return them with a 200 code
+
+app.post('/api/postly', (request, response) => {
+    console.log('Received request: ' + JSON.stringify(request.body));
+    const { testData } = request.body;
+    // If the data is a string called 'teapot', return the teapot status code
+    if (testData === 'teapot') {
+        return response.sendStatus(418);
+    }
+    // Simply return whatever the client sent to show that the server received it
+    return response.status(200)
+        .send('You said ' + testData);
+});
+
+// Any other GET request that doesn't match previous routes should return the website
+app.get('/*', (request, response) => {
+    const indexPath = path.join(clientAppDirectory, 'index.html');
+    return response.sendFile(indexPath);
+});
+
+
 app.get('/api/user', async (request, response) => {
 
     console.log('A GET request came in asking for all users');
@@ -38,12 +63,17 @@ app.post('/api/users', async (request, response) => {
             return response.sendStatus(400);
         }
 
-        await User.create({ userName: userName,
-            firstName: firstName,
-            lastName: lastName,
-            emailAddress: emailAddress,
-            password: password
+        await bcrypt.hash(password, 12, async (error, hash) => {
+            if (error) {
+                console.log('An error occured hashing the password: ' + error.message);
+                return response.sendStatus(400);
+            }
+            // Create a new user with the password hash and email address
+            const user = await User.create({userName, firstName, lastName, emailAddress, password: hash});
+            console.log('Saved user email was ' + user.emailAddress + ' and password was ' + user.password);
+            return response.sendStatus(200);
         });
+
         console.log(`A new user was created with name: '${userName}' and email address: '${emailAddress}'`);
         return response.sendStatus(200);
     } catch (error) {
@@ -91,15 +121,17 @@ app.post('/api/beers', async (request, response) => {
     }
 });
 
-app.delete('/api/beer', async (request, response) => {
-    const { storeName, beerName, beerType, address, city, state} = request.body;
-
+app.delete('/api/beer/', async (request, response) => {
+    const { beerId, storeName, beerName, beerType, address, city, state} = request.body;
     try {
 
         console.log('Delete Request');
-        const beers = await Beer.findOneAndDelete({});
-        return response.send(beers).status(200);
 
+        const beers = await Beer.findOne({});
+
+        console.log(storeName);
+        console.log(beers);
+        return response.send(beers).status(200);
     } catch (error) {
         console.error('Something went wrong while trying to delete: ' + error.message);
         return response.sendStatus(400);
@@ -108,5 +140,5 @@ app.delete('/api/beer', async (request, response) => {
 
 
 
-const port = 4100;
-app.listen(port, () => console.log(`Server has started on localhost:${port}`))
+const port = process.env.PORT || 4100;
+app.listen(port, () => console.log(`Server has started on localhost:${port}`));

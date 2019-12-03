@@ -41,10 +41,15 @@ class AdminItemPage extends React.Component {
         this.handleStateChange = this.handleStateChange.bind(this);
         this.handleBeerSubmit = this.handleBeerSubmit.bind(this);
         this.deleteBeers = this.deleteBeers.bind(this);
+        this.handleAdminOpen = this.handleAdminOpen.bind(this);
 
     }
 
-
+    handleAdminOpen = () => {
+        const { history } = this.props;
+        history.push('/AdminItemPage');
+        console.log(this.state);
+    };
 
     handleStoreNameChange(event) {
         console.log("Change: " + event.target.value);
@@ -89,34 +94,30 @@ class AdminItemPage extends React.Component {
                 const response = await Axios.get('/api/beer');
                 const {data} = response;
                 this.setState({beers: data});
-
+                console.log(data);
             } catch (error) {
                 console.error(error.message);
             }
         }
 
-        async deleteBeers() {
-            const {storeName, beerName, beerType, address, city, state} = this.state;
-
+        async deleteBeers(id) {
+            const { beerId, storeName, beerName, beerType, address, city, state} = this.state;
             try {
-                const data = {
-                    storeName: storeName,
-                    beerName: beerName,
-                    beerType: beerType,
-                    address: address,
-                    city: city,
-                    state: state
-                };
-
-
-                console.log(data);
-                await Axios.delete('/api/beer', data);
+                const response = await Axios.get('/api/beer');
+                const {data} = response;
+                this.setState({beer: data});
+                console.log(this.state.data);
+                this.setState({
+                    beer: this.state.beers.filter(el => el._id !== id)
+                });
+                console.log(this.state.storeName);
+                await Axios.delete('/api/beer/', {params: { id: beerId } });
+                console.log(this.state.beerId);
 
             } catch (error) {
                 console.error(error.message);
             }
-            const { history } = this.props;
-            history.push('/AdminItemPage')
+            await this.loadBeers();
         }
 
 
@@ -132,7 +133,6 @@ class AdminItemPage extends React.Component {
                 city: city,
                 state: state
             };
-
 
             console.log(data);
             await Axios.post('/api/beers', data);
@@ -167,7 +167,7 @@ class AdminItemPage extends React.Component {
                         </TableHead>
                         <TableBody>
                             {this.state.beers.map(row => (
-                                <TableRow key={row.storeName} >
+                                <TableRow key={row._id}>
                                     <TableCell align="right" component="th" scope="row">{row.storeName}</TableCell>
                                     <TableCell align="right">{row.beerName}</TableCell>
                                     <TableCell align="right">{row.beerType}</TableCell>
@@ -178,8 +178,9 @@ class AdminItemPage extends React.Component {
                                                 style= {{
                                                     marginRight: '1rem',
                                                 }}>
-                                        <DeleteIcon onClick= {this.deleteBeers}>
-
+                                        {row._id}
+                                        <DeleteIcon
+                                            onClick= {this.deleteBeers}>
                                         </DeleteIcon>
                                     </TableCell>
                                 </TableRow>

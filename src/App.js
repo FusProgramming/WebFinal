@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import NavigationBar from './navigation/NavigationBar';
 import NavigationBarAdmin from './navigation/NavigationBarAdmin';
 import LoginPage from "./pages/LoginPage"
@@ -15,10 +16,47 @@ import {
   Route,
 } from "react-router-dom";
 
-
-
 class App extends React.Component {
-  render() {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+            input: '',
+            response: ''
+        };
+
+        this.handleInput = this.handleInput.bind(this);
+        this.handleInputSend = this.handleInputSend.bind(this);
+    }
+
+    handleInput(event) {
+
+        this.setState({
+
+            input: event.target.value,
+
+            response: ''
+        });
+    }
+    async handleInputSend() {
+
+        const { input } = this.state;
+
+        try {
+
+            const response = await Axios.post('/api/postly', { testData: input });
+
+            this.setState({ response: response.data })
+
+        } catch (error) {
+
+            alert("Failure: " + error.message);
+        }
+    }
+
+    render() {
     return (
         <Router>
           <div>

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 //Credentials of data that will be stored in MongoDB
 const UserSchema = new mongoose.Schema({
+
     userName: {
         type: String,
         default: ''

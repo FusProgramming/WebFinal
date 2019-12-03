@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
 //Credentials of data that will be stored in MongoDB
+
 const BeerSchema = new mongoose.Schema({
+    beerId: {
+        beerId: mongoose.Schema.Types.ObjectId,
+        content: String
+    },
     storeName: {
         type: String,
         default: ''
