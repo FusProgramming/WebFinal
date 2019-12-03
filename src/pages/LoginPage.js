@@ -4,16 +4,15 @@ import EmailInput from '../input/EmailInput';
 import PasswordInput from '../input/PasswordInput';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Container, StandardProps as style} from "@material-ui/core";
-import Redirect from "react-router-dom/es/Redirect";
-import AppBar from "@material-ui/core/AppBar/AppBar";
+import {Container} from "@material-ui/core";
+
 import {withRouter} from "react-router-dom";
 import {Avatar} from "material-ui";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as palette from "@material-ui/core/colors";
 import Grid from "@material-ui/core/Grid";
-import Image from '../assets/BeerPhoto.jpg';
+
 
 
 class LoginPage extends React.Component {

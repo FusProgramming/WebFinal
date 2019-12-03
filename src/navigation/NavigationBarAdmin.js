@@ -2,17 +2,8 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import InputBase from "@material-ui/core/InputBase";
 import shape from "@material-ui/core/styles/shape";
-import {fade} from "@material-ui/core/styles";
-import SearchIcon from '@material-ui/icons/Search';
-import * as palette from "@material-ui/core/colors";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import MailIcon from '@material-ui/icons/Mail';
 import MenuItem from "@material-ui/core/MenuItem";
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import {AccountCircle} from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { withRouter } from 'react-router-dom'
 import {Tooltip} from "@material-ui/core";
