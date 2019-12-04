@@ -6,6 +6,14 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import Table from "@material-ui/core/Table";
+import Drawer from "@material-ui/core/Drawer";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItemText from "@material-ui/core/ListItemText";
+import MailIcon from '@material-ui/icons/Mail';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Axios from "axios";
 
@@ -39,8 +47,7 @@ class AdminItemPage extends React.Component {
 
     handleAdminOpen = () => {
         const { history } = this.props;
-        history.push('/AdminItemPage');
-        console.log(this.state);
+        history.push('/AdminItemPage')
     };
 
     handleStoreNameChange(event) {
@@ -73,44 +80,44 @@ class AdminItemPage extends React.Component {
         this.setState({state: event.target.value})
     }
 
-        async componentDidMount() {
-            // Load all of the users as soon as this component mounts
-            await this.loadBeers();
-        }
+    async componentDidMount() {
+        // Load all of the users as soon as this component mounts
+        await this.loadBeers();
+    }
 
-        /**
-         * Reusable function that uses a GET request to load all users into a state.
-         */
-        async loadBeers() {
-            try {
-                const response = await Axios.get('/api/beer');
-                const {data} = response;
-                this.setState({beers: data});
-                console.log(data);
-            } catch (error) {
-                console.error(error.message);
-            }
+    /**
+     * Reusable function that uses a GET request to load all users into a state.
+     */
+    async loadBeers() {
+        try {
+            const response = await Axios.get('/api/beer');
+            const {data} = response;
+            this.setState({beers: data});
+            console.log(data);
+        } catch (error) {
+            console.error(error.message);
         }
+    }
 
-        async deleteBeers(id) {
-            const { beerId, storeName, beerName, beerType, address, city, state} = this.state;
-            try {
-                const response = await Axios.get('/api/beer');
-                const {data} = response;
-                this.setState({beer: data});
-                console.log(this.state.data);
-                this.setState({
-                    beer: this.state.beers.filter(el => el._id !== id)
-                });
-                console.log(this.state.storeName);
-                await Axios.delete('/api/beer/', {params: { id: beerId } });
-                console.log(this.state.beerId);
-
-            } catch (error) {
-                console.error(error.message);
-            }
-            await this.loadBeers();
+    async  deleteBeers() {
+        const {storeName, beerName, beerType, address, city, state} = this.state;
+        try {
+            const data = {
+                beers: [],
+                storeName: storeName,
+                beerName: beerName,
+                beerType: beerType,
+                address: address,
+                city: city,
+                state: state
+            };
+            console.log(data);
+            await Axios.delete('/api/beer/', data );
+        } catch (error) {
+            console.error(error.message);
         }
+        await this.loadBeers();
+    }
 
 
     async handleBeerSubmit() {
@@ -137,51 +144,50 @@ class AdminItemPage extends React.Component {
 
     render() {
         return (
-<div>
-            <div style= {{
-                display: "flex-wrap",
-                marginTop: '2rem',
-                marginRight: '1rem',
-                marginLeft: '12rem'
-            }}>
-                <Paper>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Store Name</TableCell>
-                                <TableCell align="right">Beer</TableCell>
-                                <TableCell align="right">Beer Type</TableCell>
-                                <TableCell align="right">Address</TableCell>
-                                <TableCell align="right">City</TableCell>
-                                <TableCell align="right">State</TableCell>
-                                <TableCell align="right">Delete</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.beers.map(row => (
-                                <TableRow key={row._id}>
-                                    <TableCell align="right" component="th" scope="row">{row.storeName}</TableCell>
-                                    <TableCell align="right">{row.beerName}</TableCell>
-                                    <TableCell align="right">{row.beerType}</TableCell>
-                                    <TableCell align="right">{row.address}</TableCell>
-                                    <TableCell align="right">{row.city}</TableCell>
-                                    <TableCell align="right">{row.state}</TableCell>
-                                    <TableCell align="right"
-                                                style= {{
-                                                    marginRight: '1rem',
-                                                }}>
-                                        {row._id}
-                                        <DeleteIcon
-                                            onClick= {this.deleteBeers}>
-                                        </DeleteIcon>
-                                    </TableCell>
+            <div>
+                <div style= {{
+                    display: "flex-wrap",
+                    marginTop: '2rem',
+                    marginRight: '1rem',
+                    marginLeft: '12rem'
+                }}>
+                    <Paper>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Store Name</TableCell>
+                                    <TableCell align="right">Beer</TableCell>
+                                    <TableCell align="right">Beer Type</TableCell>
+                                    <TableCell align="right">Address</TableCell>
+                                    <TableCell align="right">City</TableCell>
+                                    <TableCell align="right">State</TableCell>
+                                    <TableCell align="right">Delete</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.beers.map(row => (
+                                    <TableRow key={row._id}>
+                                        <TableCell align="right" component="th" scope="row">{row.storeName}</TableCell>
+                                        <TableCell align="right">{row.beerName}</TableCell>
+                                        <TableCell align="right">{row.beerType}</TableCell>
+                                        <TableCell align="right">{row.address}</TableCell>
+                                        <TableCell align="right">{row.city}</TableCell>
+                                        <TableCell align="right">{row.state}</TableCell>
+                                        <TableCell align="right"
+                                                   style= {{
+                                                       marginRight: '1rem',
+                                                   }}>
+                                            <DeleteIcon
+                                                onClick= {this.deleteBeers}>
+                                            </DeleteIcon>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>
+                </div>
             </div>
-</div>
         );
     }
 
